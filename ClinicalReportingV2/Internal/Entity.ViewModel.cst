@@ -1,0 +1,44 @@
+﻿<%@ Template Language="C#" TargetLanguage="C#" Debug="True" Encoding="UTF-8" %>
+<%@ Assembly Src="Model.cs" %>
+<%@ Assembly Src="Extensions.cs" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="System.Linq" %>
+<%@ Import Namespace="System.Text" %>
+<%@ Import Namespace="System.Text.RegularExpressions" %>
+<%@ Import Namespace="SchemaMapper" %>
+<%@ Property Name="Entity"
+             Type="SchemaMapper.Entity"  %>
+<%@ Property Name="ContextNamespace"
+             Type="System.String"  %>
+<%@ Property Name="EntityNamespace"
+             Type="System.String"  %>
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+using ServiceStack.Data;
+using ClinicalReporting.Common;
+using ClinicalReporting.ViewModel;
+using <%= ContextNamespace %>.Model;
+using <%= ContextNamespace %>.Model.Wrapper;
+namespace <%= ContextNamespace %>.ViewModel
+{
+    public class <%= Entity.ClassName%>TestVM: ViewModelCommon, ITest
+    {
+       private <%= Entity.ClassName%>W _<%= Entity.ClassName.ToSafeName().ToLower()%>w;
+       public <%= Entity.ClassName%>TestVM(IModelCommon <%= Entity.ClassName.ToSafeName().ToLower()%>)
+       {
+          _<%= Entity.ClassName.ToSafeName().ToLower()%>w = new <%= Entity.ClassName%>W(<%= Entity.ClassName.ToSafeName().ToLower()%> as <%= Entity.ClassName%>);
+       }
+       public <%= Entity.ClassName%>TestVM()
+       {
+          _<%= Entity.ClassName.ToSafeName().ToLower()%>w = new <%= Entity.ClassName%>W(new <%= Entity.ClassName%>());
+       }
+       
+       public <%= Entity.ClassName%>W <%= Entity.ClassName%>
+       {
+            get { return _<%= Entity.ClassName.ToSafeName().ToLower()%>w; }
+            set { Set(() =>  <%= Entity.ClassName%>, ref _<%= Entity.ClassName.ToSafeName().ToLower()%>w, value); }
+       }
+    }
+}

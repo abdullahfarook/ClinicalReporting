@@ -1,0 +1,327 @@
+﻿<UserControl x:Class="ClinicalReporting.Views.AddPatientView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ViewModel="clr-namespace:ClinicalReporting.ViewModel"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:common="clr-namespace:ClinicalReporting.Common"
+             d:DesignWidth="800"
+             Width="700"
+             d:DataContext="{d:DesignInstance  ViewModel:AddPatientViewModel,
+                                                  IsDesignTimeCreatable=True}"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <common:GenderConverter x:Key="genderConverterKey" />
+    </UserControl.Resources>
+    <materialDesign:Card Margin="5 5 5 5"
+                         materialDesign:ShadowAssist.ShadowDepth="Depth4">
+        <ScrollViewer x:Name="scrol"
+                      VerticalScrollBarVisibility="Auto"
+                      VirtualizingPanel.ScrollUnit="Pixel">
+            <StackPanel Margin="10,0,0,0"
+                        Orientation="Vertical">
+                <StackPanel Width="910"
+                            Height="114"
+                            Orientation="Horizontal">
+
+                    <GroupBox Margin="0,0,0,0"
+                              Background="#00000000"
+                              BorderThickness="0"
+                              Header="Add Patient Form"
+                              Style="{DynamicResource MaterialDesignGroupBox}"
+                              materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                              Width="504">
+                        <Label x:Name="label2"
+                               Margin="10,10,0,0"
+                               Background="Transparent"
+                               Content="1. Candidates are required to submit applications on prescribed Admission Form.&#10;2. Please read carefully the instructions given here before filling the Admission Form. &#10;3. Fill in all the fields."
+                               FontFamily="Segoe WP Semibold"
+                               FontWeight="Bold"
+                               Foreground="Black"
+                               RenderTransformOrigin="0.5,0.5" />
+                    </GroupBox>
+
+
+                    <GroupBox Width="135"
+                              Margin="15,0,0,2"
+                              Style="{DynamicResource MaterialDesignCardGroupBox}">
+                        <GroupBox.HeaderTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Margin="8,0,0,0"
+                                               VerticalAlignment="Center"
+                                               Style="{StaticResource MaterialDesignSubheadingTextBlock}"
+                                               Text="Picture" />
+                                    <Button Width="20"
+                                            Height="20"
+                                            Margin="50,0,0,0"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Background="#FF22A5FF"
+                                            BorderBrush="#FF22A5FF"
+                                            Click="ButtonClick1"
+                                            Style="{StaticResource MaterialDesignFloatingActionMiniButton}">
+                                        <materialDesign:PackIcon Width="20"
+                                                                 Height="20"
+                                                                 HorizontalAlignment="Center"
+                                                                 VerticalAlignment="Center"
+                                                                 Kind="Plus" />
+
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GroupBox.HeaderTemplate>
+                        <Image x:Name="imgPhoto" />
+                    </GroupBox>
+
+
+                </StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"
+                                          MinWidth="150" />
+                        <ColumnDefinition Width="auto"
+                                          MinWidth="150" />
+                        <ColumnDefinition Width="auto"
+                                          MinWidth="150" />
+
+
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="Auto"
+                                       MinHeight="40" />
+                        <RowDefinition Height="Auto"
+                                       MinHeight="40" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto"
+                                       MinHeight="4" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+
+                    <StackPanel Grid.Row="0"
+                                Grid.Column="0"
+                                Orientation="Horizontal">
+                        <materialDesign:PackIcon Width="30"
+                                                 Height="30"
+                                                 Margin="35,8,0,-1"
+                                                 Foreground="{Binding BorderBrush,
+                                                                      ElementName=a2}"
+                                                 Kind="AccountCardDetails" />
+                        <TextBox x:Name="a2"
+                                 Width="126"
+                                 Height="37"
+                                 Margin="10,0,0,0"
+                                 VerticalAlignment="Bottom"
+                                 FontSize="14"
+                                 FontWeight="Bold"
+                                 Text="{Binding PatientW.PatientID,
+                                                ValidatesOnDataErrors=True}"
+                                 materialDesign:HintAssist.Hint="Patient ID "
+                                 materialDesign:HintAssist.IsFloating="True" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1"
+                                Grid.Column="0"
+                                Orientation="Horizontal"
+                                Height="50">
+                        <materialDesign:PackIcon Width="30"
+                                                 Height="30"
+                                                 Margin="30,21,0,-1"
+                                                 Foreground="{Binding BorderBrush,
+                                                                      ElementName=a5}"
+                                                 Kind="AccountStar" />
+                        <TextBox x:Name="a5"
+                                 Width="249"
+                                 Margin="10,0,0,0"
+                                 FontSize="14"
+                                 FontWeight="Bold"
+                                 Text="{Binding PatientW.Name,
+                                                ValidatesOnDataErrors=True}"
+                                 materialDesign:HintAssist.Hint="Full Name"
+                                 materialDesign:HintAssist.IsFloating="True"
+                                 Height="50" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1"
+                                Grid.RowSpan="3"
+                                Grid.Column="2"
+                                Width="205"
+                                Margin="281,0,0,0"
+                                Orientation="Vertical" />
+                    <StackPanel Grid.Row="2"
+                                Grid.Column="0"
+                                Orientation="Horizontal">
+                        <materialDesign:PackIcon Width="30"
+                                                 Height="30"
+                                                 Margin="35,32,0,-2"
+                                                 Foreground="{Binding BorderBrush,
+                                                                      ElementName=a9}"
+                                                 Kind="AccountCircle" />
+                        <TextBox x:Name="a9"
+                                 Width="126"
+                                 Height="60"
+                                 Margin="10,0,0,0"
+                                 VerticalAlignment="Bottom"
+                                 FontSize="14"
+                                 FontWeight="Bold"
+                                 Text="{Binding PatientW.Age,
+                                                ValidatesOnDataErrors=True}"
+                                 materialDesign:HintAssist.Hint="Age"
+                                 materialDesign:HintAssist.IsFloating="True" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="3"
+                                Grid.Column="0"
+                                Margin="25,0,0,0"
+                                Orientation="Horizontal">
+
+                        <GroupBox Width="286"
+                                  Margin="8,10,0,0"
+                                  Style="{DynamicResource MaterialDesignGroupBox}"
+                                  Height="94"
+                                  VerticalAlignment="Top">
+                            <GroupBox.HeaderTemplate>
+                                <DataTemplate>
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button HorizontalAlignment="Left">
+                                            <materialDesign:PackIcon Width="20"
+                                                                     Height="20"
+                                                                     Kind="GenderMaleFemale" />
+                                        </Button>
+                                        <TextBlock Margin="30,0,0,0"
+                                                   VerticalAlignment="Center"
+                                                   Style="{StaticResource MaterialDesignSubheadingTextBlock}"
+                                                   Text="Gender" />
+
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GroupBox.HeaderTemplate>
+                            <StackPanel>
+                                <RadioButton Content="Male"
+                                             GroupName="gender"
+                                             IsChecked="{Binding PatientW.Sex, Converter={StaticResource genderConverterKey},ConverterParameter=Male, Mode=TwoWay}" />
+                                <RadioButton Content="Female"
+                                             IsChecked="{Binding PatientW.Sex, Converter={StaticResource genderConverterKey},ConverterParameter=Female}"
+                                             GroupName="gender" />
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
+                    <StackPanel Grid.Row="4"
+                                Grid.Column="0"
+                                Margin="25,0,0,0"
+                                Orientation="Horizontal">
+                        <materialDesign:PackIcon Width="30"
+                                                 Height="30"
+                                                 Margin="10,17,0,0"
+                                                 Foreground="{Binding BorderBrush,
+                                                                      ElementName=a8}"
+                                                 Kind="Voice" />
+                        <ComboBox x:Name="a8"
+                                  Width="166"
+                                  MinWidth="72"
+                                  Margin="16 0 0 0"
+                                  DisplayMemberPath="DoctorName"
+                                  FontSize="14"
+                                  FontWeight="Bold"
+                                  ItemsSource="{Binding Main.Doctors,Source={StaticResource Locator}}"
+                                  SelectedValuePath="DoctorName"
+                                  SelectedValue="{Binding PatientW.RefBy}"
+                                  VirtualizingPanel.ScrollUnit="Pixel"
+                                  materialDesign:HintAssist.Hint="Ref By"
+                                  materialDesign:HintAssist.IsFloating="True">
+                            <ComboBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel VirtualizingStackPanel.IsVirtualizing="True"
+                                                            VirtualizingStackPanel.VirtualizationMode="Recycling" />
+                                </ItemsPanelTemplate>
+                            </ComboBox.ItemsPanel>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel HorizontalAlignment="Center"
+                                Orientation="Horizontal"
+                                Grid.Row="5"
+                                Grid.Column="0">
+
+
+                        <Button Margin="5"
+                                HorizontalAlignment="Center"
+                                Command="{Binding SaveCommand,
+                                                  Mode=OneWay}"
+                                Style="{StaticResource MaterialDesignFloatingActionButton}"
+                                Height="40"
+                                Width="40">
+                            <materialDesign:PackIcon Width="25"
+                                                     Height="35"
+                                                     Kind="FolderDownload" />
+                        </Button>
+
+
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical"
+                                Grid.Column="1"
+                                Grid.Row="0"
+                                Grid.RowSpan="6"
+                                Margin="80 0 5 0">
+                        <TreeView Height="350"
+                                  LostFocus="TreeViewLostFocus"
+                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                            <TreeViewItem x:Name="Blood"
+                                          HeaderTemplate="{StaticResource htBlood}"
+                                          ItemTemplate="{StaticResource itBlood}"
+                                          ItemsSource="{Binding PatientTests.BloodGroups}" />
+                            <TreeViewItem x:Name="bio"
+                                          HeaderTemplate="{StaticResource htBio}"
+                                          ItemTemplate="{StaticResource itBlood}"
+                                          ItemsSource="{Binding PatientTests.Biochemistries}" />
+                            <TreeViewItem x:Name="hbsa"
+                                          HeaderTemplate="{StaticResource htHbsa}"
+                                          ItemTemplate="{StaticResource itHbsa}"
+                                          ItemsSource="{Binding PatientTests.ElisaHbsags}" />
+                            <TreeViewItem x:Name="hcv"
+                                          HeaderTemplate="{StaticResource htHcv}"
+                                          ItemTemplate="{StaticResource itHcv}"
+                                          ItemsSource="{Binding PatientTests.ElisaHcvs}" />
+                            <TreeViewItem x:Name="tb"
+                                          HeaderTemplate="{StaticResource htTb}"
+                                          ItemTemplate="{StaticResource itTb}"
+                                          ItemsSource="{Binding PatientTests.ElisaTbs}" />
+                            <TreeViewItem x:Name="hae"
+                                          HeaderTemplate="{StaticResource htHae}"
+                                          ItemTemplate="{StaticResource itHae}"
+                                          ItemsSource="{Binding PatientTests.Haematologies}" />
+                            <TreeViewItem x:Name="ser"
+                                          HeaderTemplate="{StaticResource htSer}"
+                                          ItemTemplate="{StaticResource itSer}"
+                                          ItemsSource="{Binding PatientTests.Serologies}" />
+                            <TreeViewItem x:Name="se"
+                                          HeaderTemplate="{StaticResource htSem}"
+                                          ItemTemplate="{StaticResource itSem}"
+                                          ItemsSource="{Binding PatientTests.SemenAnalyses}" />
+                            <TreeViewItem x:Name="urine"
+                                          ItemTemplate="{StaticResource itUrine}"
+                                          HeaderTemplate="{StaticResource htUrine}"
+                                          ItemsSource="{Binding PatientTests.UrineExaminations}" />
+                        </TreeView>
+                    </StackPanel>
+
+                </Grid>
+            </StackPanel>
+
+
+        </ScrollViewer>
+    </materialDesign:Card>
+
+
+</UserControl>

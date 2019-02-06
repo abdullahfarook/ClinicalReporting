@@ -1,0 +1,182 @@
+﻿<UserControl x:Class="ClinicalReporting.Views.SearchView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ViewModel="clr-namespace:ClinicalReporting.ViewModel"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:ClinicalReporting.ViewModel"
+
+             DataContext="{Binding Source={StaticResource Locator},
+                                   Path=Main.SearchViewModel}"
+             d:DataContext="{d:DesignInstance vm:SearchViewModel,
+                                              IsDesignTimeCreatable=True}"
+             d:DesignWidth="1014"
+
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <!--
+                <CollectionViewSource x:Key="PatientViewCollection"
+                Filter="Patient_Filter"
+                Source="{Binding Patients}" />
+            -->
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary
+                    Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.DataGrid.xaml" />
+                <ResourceDictionary
+                    Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.DataGrid.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <!--
+        <UserControl.DataContext>
+        <Binding Path="Mian.SearchViewModel" Source="{StaticResource Locator, Is}" />
+        </UserControl.DataContext>
+    -->
+    <materialDesign:Card
+        Margin="5" materialDesign:ShadowAssist.ShadowDepth="Depth3">
+        <Grid x:Name="SearchStack">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250*" />
+
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" MinHeight="40" />
+                <RowDefinition Height="auto" MinHeight="167" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0"
+                        Grid.Column="0"
+                        Margin="60,0,0,0"
+                        Height="46"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                <materialDesign:PackIcon Width="30"
+                                         Height="30"
+                                         Margin="30,12,0,0"
+                                         Foreground="{Binding BorderBrush,
+                                                              ElementName=Search}"
+                                         Kind="AccountStar" />
+                <TextBox x:Name="Search"
+                         Width="200"
+                         Margin="10,4,0,6"
+                         FontSize="14"
+                         FontWeight="Bold"
+                         Text="{Binding SearchName,
+                                        UpdateSourceTrigger=PropertyChanged,
+                                        Delay=300}"
+                         materialDesign:HintAssist.Hint="Full Name or ID"
+                         materialDesign:HintAssist.IsFloating="True">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding SearchName}" />
+                    </TextBox.InputBindings>
+                </TextBox>
+                <StackPanel Orientation="Horizontal">
+                    <Button Margin="40,0,0,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Command="{Binding EditPatientCommand,
+                                                  Mode=OneWay}"
+                            Style="{StaticResource MaterialDesignFloatingActionButton}"
+                            Height="40"
+                            Width="40">
+                        <materialDesign:PackIcon Width="25"
+                                                 Height="35"
+                                                 Kind="AccountCardDetails" />
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Grid.Row="1"
+                        Grid.Column="0"
+                        HorizontalAlignment="Left"
+                        Orientation="Horizontal">
+                <DataGrid x:Name="Grid"
+                          Height="400"
+                          Margin="10 0 0 10"
+                          Width="400"
+                          AutoGenerateColumns="False"
+                          IsReadOnly="True"
+                          IsSynchronizedWithCurrentItem="True"
+                          ItemsSource="{Binding PatientView}"
+                          SelectedValue="{Binding SelectedPatientId}"
+                          SelectedValuePath="PatientID"
+                          SelectionMode="Single"
+                          VirtualizingPanel.ScrollUnit="Pixel">
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}"
+                               TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="FontWeight"
+                                    Value="ExtraBold" />
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding PatientID}"
+
+                                            Header="ID" />
+                        <DataGridTextColumn Width="200"
+                                            Binding="{Binding Name}"
+                                            FontSize="14"
+                                            FontWeight="Bold"
+                                            Header="Name" />
+                        <DataGridTextColumn Binding="{Binding Age}"
+                                            Header="Age" />
+                        <DataGridTextColumn Binding="{Binding Sex}"
+                                            Header="Gender" />
+
+                    </DataGrid.Columns>
+                </DataGrid>
+                <StackPanel Orientation="Vertical" Margin="30 0 5 0">
+                    <DatePicker Width="170"
+                                Margin="13,20,0,3"
+                                HorizontalAlignment="Left"
+                                FontSize="16"
+                                FontWeight="Bold"
+                                materialDesign:HintAssist.Hint="Date"
+                                materialDesign:HintAssist.IsFloating="True" />
+                    <TreeView Height="350"
+                              LostFocus="TreeViewLostFocus"
+                              ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <TreeViewItem x:Name="Blood"
+                                      HeaderTemplate="{StaticResource htBlood}"
+                                      ItemTemplate="{StaticResource itBlood}"
+                                      ItemsSource="{Binding PatientTests.BloodGroups}" />
+                        <TreeViewItem x:Name="bio"
+                                      HeaderTemplate="{StaticResource htBio}"
+                                      ItemTemplate="{StaticResource itBlood}"
+                                      ItemsSource="{Binding PatientTests.Biochemistries}" />
+                        <TreeViewItem x:Name="hbsa"
+                                      HeaderTemplate="{StaticResource htHbsa}"
+                                      ItemTemplate="{StaticResource itHbsa}"
+                                      ItemsSource="{Binding PatientTests.ElisaHbsags}" />
+                        <TreeViewItem x:Name="hcv"
+                                      HeaderTemplate="{StaticResource htHcv}"
+                                      ItemTemplate="{StaticResource itHcv}"
+                                      ItemsSource="{Binding PatientTests.ElisaHcvs}" />
+                        <TreeViewItem x:Name="tb"
+                                      HeaderTemplate="{StaticResource htTb}"
+                                      ItemTemplate="{StaticResource itTb}"
+                                      ItemsSource="{Binding PatientTests.ElisaTbs}" />
+                        <TreeViewItem x:Name="hae"
+                                      HeaderTemplate="{StaticResource htHae}"
+                                      ItemTemplate="{StaticResource itHae}"
+                                      ItemsSource="{Binding PatientTests.Haematologies}" />
+                        <TreeViewItem x:Name="ser"
+                                      HeaderTemplate="{StaticResource htSer}"
+                                      ItemTemplate="{StaticResource itSer}"
+                                      ItemsSource="{Binding PatientTests.Serologies}" />
+                        <TreeViewItem x:Name="se"
+                                      HeaderTemplate="{StaticResource htSem}"
+                                      ItemTemplate="{StaticResource itSem}"
+                                      ItemsSource="{Binding PatientTests.SemenAnalyses}" />
+                        <TreeViewItem x:Name="urine"
+                                      ItemTemplate="{StaticResource itUrine}"
+                                      HeaderTemplate="{StaticResource htUrine}"
+                                      ItemsSource="{Binding PatientTests.UrineExaminations}" />
+                    </TreeView>
+                </StackPanel>
+            </StackPanel>
+
+        </Grid>
+    </materialDesign:Card>
+</UserControl>
